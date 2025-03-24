@@ -35,15 +35,23 @@ describe('DogsController', () => {
   describe('getAllBreeds', () => {
     it('It should return all dog breeds', (done) => {
       const mockResult = {
-        message: { husky: [], labrador: [] },
-        status: 'success',
+        data: {
+          message: { husky: [], labrador: [] },
+          status: 'success',
+        },
+        metadata: {
+          page: 1,
+          limit: 10,
+          totalItems: 2,
+          totalPages: 1,
+        },
       };
 
       mockDogsService.getAllBreeds.mockReturnValue(of(mockResult));
 
-      controller.getAllBreeds().subscribe((result) => {
+      controller.getAllBreeds({ page: 1, limit: 10 }).subscribe((result) => {
         expect(result).toEqual(mockResult);
-        expect(service.getAllBreeds).toHaveBeenCalled();
+        expect(service.getAllBreeds).toHaveBeenCalledWith({ page: 1, limit: 10 });
         done();
       });
     });

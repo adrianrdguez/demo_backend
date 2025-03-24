@@ -44,8 +44,9 @@ describe('DogsService', () => {
 
       mockHttpService.get.mockReturnValue(of(mockResponse));
 
-      service.getAllBreeds().subscribe((result) => {
-        expect(result).toEqual(mockResponse.data);
+      service.getAllBreeds({ page: 1, limit: 10 }).subscribe((result) => {
+        expect(result.data.message).toEqual(mockResponse.data.message);
+        expect(result.metadata).toBeDefined();
         expect(httpService.get).toHaveBeenCalledWith('https://dog.ceo/api/breeds/list/all');
         done();
       });
