@@ -1,14 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 import { Observable, map } from 'rxjs';
 import { DogBreeds, DogImages, DogRandomImage } from './interfaces/dog.interface';
 import { PaginationQueryDto, PaginatedResponse } from './dto/pagination.dto';
 
 @Injectable()
 export class DogsService {
-  private readonly baseUrl = 'https://dog.ceo/api';
+  private readonly baseUrl: string;
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {
+    this.baseUrl = this.configService.get<string>('DOGS_API_URL') ?? 'https://dog.ceo/api';
+  }
 
   getAllBreeds(query: PaginationQueryDto): Observable<PaginatedResponse<DogBreeds>> {
     return this.httpService

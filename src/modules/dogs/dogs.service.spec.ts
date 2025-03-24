@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpService } from '@nestjs/axios';
 import { DogsService } from './dogs.service';
 import { of } from 'rxjs';
+import { ConfigService } from '@nestjs/config';
 
 describe('DogsService', () => {
   let service: DogsService;
@@ -11,6 +12,10 @@ describe('DogsService', () => {
     get: jest.fn()
   };
 
+  const mockConfigService = {
+    get: jest.fn().mockReturnValue('https://dog.ceo/api'),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -18,6 +23,10 @@ describe('DogsService', () => {
         {
           provide: HttpService,
           useValue: mockHttpService,
+        },
+        {
+          provide: ConfigService,
+          useValue: mockConfigService,
         },
       ],
     }).compile();
