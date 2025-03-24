@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { Observable, map } from 'rxjs';
+import { DogBreeds, DogImages, DogRandomImage } from './interfaces/dog.interface';
 
 @Injectable()
 export class DogsService {
@@ -8,21 +9,21 @@ export class DogsService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  getAllBreeds(): Observable<any> {
+  getAllBreeds(): Observable<DogBreeds> {
     return this.httpService
-      .get(`${this.baseUrl}/breeds/list/all`)
+      .get<DogBreeds>(`${this.baseUrl}/breeds/list/all`)
       .pipe(map((response) => response.data));
   }
 
-  getBreedImages(breed: string): Observable<any> {
+  getBreedImages(breed: string): Observable<DogImages> {
     return this.httpService
-      .get(`${this.baseUrl}/breed/${breed}/images`)
+      .get<DogImages>(`${this.baseUrl}/breed/${breed}/images`)
       .pipe(map((response) => response.data));
   }
 
-  getRandomImageByBreed(breed: string): Observable<any> {
+  getRandomImageByBreed(breed: string): Observable<DogRandomImage> {
     return this.httpService
-      .get(`${this.baseUrl}/breed/${breed}/images/random`)
+      .get<DogRandomImage>(`${this.baseUrl}/breed/${breed}/images/random`)
       .pipe(map((response) => response.data));
   }
 } 
