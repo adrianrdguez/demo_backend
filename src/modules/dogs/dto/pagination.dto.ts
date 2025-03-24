@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, Min } from 'class-validator';
+import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class PaginationQueryDto {
@@ -24,6 +24,14 @@ export class PaginationQueryDto {
   @IsNumber()
   @Min(1)
   limit?: number = 10;
+
+  @ApiProperty({
+    description: 'Search term to filter breeds',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  search?: string;
 }
 
 export interface PaginatedResponse<T> {

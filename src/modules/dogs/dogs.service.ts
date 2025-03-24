@@ -15,7 +15,16 @@ export class DogsService {
       .get<DogBreeds>(`${this.baseUrl}/breeds/list/all`)
       .pipe(
         map((response) => {
-          const breeds = Object.keys(response.data.message);
+          let breeds = Object.keys(response.data.message);
+          
+          // Apply search filter if searching
+          if (query.search) {
+            const searchTerm = query.search.toLowerCase();
+            breeds = breeds.filter(breed => 
+              breed.toLowerCase().includes(searchTerm)
+            );
+          }
+
           const totalItems = breeds.length;
           const page = query.page ?? 1;
           const limit = query.limit ?? 10;
