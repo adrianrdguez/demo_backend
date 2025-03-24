@@ -6,19 +6,21 @@ A NestJS-based REST API for dog-related information and images.
 
 This API provides endpoints to fetch information about dog breeds and their images. Built with [NestJS](https://github.com/nestjs/nest) framework.
 
+## API Documentation
+
+The API documentation is available through Swagger UI at:
+```
+http://localhost:3000/api
+```
+
+You can explore and test all endpoints interactively through the Swagger interface.
+
 ## Features
 
 - Get all dog breeds (with pagination and search)
 - Get images for a specific breed
 - Get random images for a specific breed
 - Swagger API documentation
-
-## API Documentation
-
-Once the server is running, you can access the Swagger documentation at:
-```
-http://localhost:3000/api
-```
 
 ## Project setup
 
