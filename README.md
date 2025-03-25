@@ -1,4 +1,4 @@
-# Barkibu Backend
+# Demo Backend
 
 A NestJS-based REST API for dog-related information and images.
 
